@@ -17,19 +17,18 @@ describe('testa o componente App', () => {
   });
 
   it('2 - Testa se a aplicação é redirecionada para a página inicial', () => {
-    renderWithRouter(<App />);
-
+    const { history } = renderWithRouter(<App />);
     const home = screen.getByRole('link', { name: /home/i });
-    const titleHome = screen.getByRole('heading', { level: 2 });
 
     userEvent.click(home);
 
-    expect(titleHome).toHaveTextContent(/encountered pokémons/i);
+    const { location: { pathname } } = history;
+
+    expect(pathname).toBe('/');
   });
 
   it('3 - Teste se a aplicação é redirecionada para a página de About', () => {
     const { history } = renderWithRouter(<App />);
-
     const about = screen.getByRole('link', { name: /about/i });
 
     userEvent.click(about);
