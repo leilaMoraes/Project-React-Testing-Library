@@ -1,1 +1,64 @@
-test('', () => {});
+import { screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import App from '../App';
+import renderWithRouter from '../renderWithRouter';
+
+describe('testa o componente App', () => {
+  it('1 - Testa se o topo da aplicação contém um conjunto fixo de links de navegação', () => {
+    renderWithRouter(<App />);
+
+    const home = screen.getByRole('link', { name: /home/i });
+    const about = screen.getByRole('link', { name: /about/i });
+    const favorite = screen.getByRole('link', { name: /favorite pokémons/i });
+
+    expect(home).toBeInTheDocument();
+    expect(about).toBeInTheDocument();
+    expect(favorite).toBeInTheDocument();
+  });
+
+  it('2 - Testa se a aplicação é redirecionada para a página inicial', () => {
+    renderWithRouter(<App />);
+
+    const home = screen.getByRole('link', { name: /home/i });
+    const titleHome = screen.getByRole('heading', { level: 2 });
+
+    userEvent.click(home);
+
+    expect(titleHome).toHaveTextContent(/encountered pokémons/i);
+  });
+
+  it('3 - Teste se a aplicação é redirecionada para a página de About', () => {
+    const { history } = renderWithRouter(<App />);
+
+    const about = screen.getByRole('link', { name: /about/i });
+
+    userEvent.click(about);
+
+    const { location: { pathname } } = history;
+
+    expect(pathname).toBe('/about');
+  });
+
+  it('4 - Teste se a aplicação é redirecionada para a página de Pokémons Favoritados', () => {
+    const { history } = renderWithRouter(<App />);
+    const favorite = screen.getByRole('link', { name: /favorite pokémons/i });
+
+    userEvent.click(favorite);
+
+    const { location: { pathname } } = history;
+
+    expect(pathname).toBe('/favorites');
+  });
+
+  it('Teste se a aplicação é redirecionada para a página Not Found', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/not-found');
+    });
+
+    const { location: { pathname } } = history;
+
+    expect(pathname).toBe('/not-found');
+  });
+});
