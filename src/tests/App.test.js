@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
 
-describe('testa o componente App', () => {
+describe('Testa o componente App', () => {
   it('1 - Testa se o topo da aplicação contém um conjunto fixo de links de navegação', () => {
     renderWithRouter(<App />);
 
@@ -49,7 +49,7 @@ describe('testa o componente App', () => {
     expect(pathname).toBe('/favorites');
   });
 
-  it('Teste se a aplicação é redirecionada para a página Not Found', () => {
+  it('5 - Teste se a aplicação é redirecionada para a página Not Found', () => {
     const { history } = renderWithRouter(<App />);
 
     act(() => {
