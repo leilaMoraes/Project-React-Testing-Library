@@ -85,7 +85,6 @@ describe('Testa o componente Pokedex', () => {
   });
 
   it('5 - Testa se a Pokédex contém um botão para resetar o filtro', () => {
-    screen.logTestingPlaygroundURL();
     renderWithRouter(<App />);
 
     const btn = screen.getAllByRole('button');
