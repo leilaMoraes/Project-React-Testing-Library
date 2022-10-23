@@ -2,7 +2,6 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
-import pokemons from '../data';
 
 describe('Testa o componente Pokemon', () => {
   it('1 - Testa se é renderizado um card com as informações de determinado pokémon', () => {
